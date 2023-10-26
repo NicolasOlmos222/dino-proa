@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dinosaurio Chrome V2</title>
+    <title>Dino PROA</title>
     <style>
 
 * {
@@ -14,7 +14,7 @@
 
 body{
     height: 100vh;
-    background: #584040;
+    background: #255966;
     display: flex;
     align-items: center;
 }
@@ -221,6 +221,8 @@ var minNubeY = 100;
 var nubes = [];
 var velNube = 0.5;
 
+var bandera = 0
+
 var contenedor;
 var dino;
 var textoScore;
@@ -253,6 +255,10 @@ function Update() {
 function HandleKeyDown(ev){
     if(event.button === 0){
         Saltar();
+        if(bandera === 1){
+            bandera = 0;
+            location.reload();
+        }
     }
 }
 
@@ -379,6 +385,7 @@ function GanarPuntos() {
 function GameOver() {
     Estrellarse();
     gameOver.style.display = "block";
+    bandera = 1;
 }
 
 function DetectarColision() {
