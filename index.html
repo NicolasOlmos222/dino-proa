@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dino PROA</title>
     <style>
-
 * {
     padding: 0;
     margin: 0;
@@ -14,163 +13,178 @@
 
 body{
     height: 100vh;
-    background: #255966;
-    background-image: url("Logo\ de\ la\ escuela\ sin\ fondo.png");
-    background-size:10%;
+    background-color: #255966;
+    background-image: url("Logo de la escuela sin fondo.png");
+    background-size: 150px; /* Ajustá el tamaño a gusto */
+    background-repeat: no-repeat;
+    background-position: center top; /* centrado arriba */
     display: flex;
     align-items: center;
+    justify-content: center; /* centra el contenedor horizontalmente */
 }
 
 .contenedor {
-    width: 920px;
-    height: 280px;
-    margin: 0 auto;
+    width: 1200px;
+    height: 400px;
+    margin: 125px auto 0 auto; /* ⬅ bajamos el juego con 150px desde arriba */
     border: black 5px solid;
     border-radius: 10px;
     position: relative;
-
-    background: linear-gradient(#b7d6c7, transparent) #ffe2d1;/*linear-gradient(#90ebff, white);*/
+    background: linear-gradient(#b7d6c7, transparent) #ffe2d1;
     transition: background-color 1s linear;
     overflow: hidden;
 }
 
-.mediodia {
-    background-color: #ffdcf3;
-}
-
-.tarde {
-    background-color: #ffadad;
-}
-
-.noche {
-    background-color: #aca8c7;
-}
+.mediodia { background-color: #ffdcf3; }
+.tarde   { background-color: #ffadad; }
+.noche   { background-color: #aca8c7; }
 
 .dino {
     width: 84px;
     height: 84px;
-
     position: absolute;
     bottom: 22px;
     left: 42px;
     z-index: 2;
-
     background: url(img/dino.png) repeat-x 0px 0px;
     background-size: 336px 84px;
     background-position-x: 0px;
-
 }
-
-.dino-corriendo {
-    animation: animarDino 0.25s steps(2) infinite;
-}
-.dino-estrellado {
-    background-position-x: -252px;
-}
+.dino-corriendo { animation: animarDino 0.25s steps(2) infinite; }
+.dino-estrellado { background-position-x: -252px; }
 
 .suelo {
     width: 200%;
     height: 42px;
-
     position: absolute;
     bottom: 0;
     left: 0;
-
     background: url(img/suelo.png) repeat-x 0px 0px;
     background-size: 50% 42px;
-
 }
 
 .cactus{
     width: 46px;
     height: 96px;
-
     position: absolute;
     bottom: 16px;
     left: 600px;
     z-index: 1;
-
     background: url(img/cactus1.png) no-repeat;
 }
 .cactus2{
     width: 98px;
     height: 66px;
-
     background: url(img/cactus2.png) no-repeat;
 }
 
 .nube{
     width: 92px;
     height: 26px;
-
     position: absolute;
     z-index: 0;
-
     background: url(img/nube.png) no-repeat;
     background-size: 92px 26px;
 }
 
 .score{
-    width: 100px;
+    width: 120px;
     height: 30px;
-
     position: absolute;
     top: 5px;
     right: 15px;
     z-index: 10;
-
     color: #d48871;
-    font-family: Verdana;
+    font-family: Verdana, sans-serif;
     font-size: 30px;
     font-weight: bold;
     text-align: right;
 }
 
+/* ====== TABLA DE POSICIONES (TOP 5) ====== */
+#leaderboard {
+    position: absolute;
+    top: 5px;
+    left: 15px;
+    z-index: 10;
+    width: 250px;
+    background: rgba(255,255,255,0.8);
+    border: 2px solid #7e928b;
+    border-radius: 8px;
+    padding: 8px 10px;
+    font-family: Verdana, sans-serif;
+}
+#leaderboard h2 {
+    font-size: 16px;
+    color: #255966;
+    margin-bottom: 6px;
+    text-align: center;
+}
+#leaderboard ol {
+    margin-left: 18px;
+    font-size: 14px;
+    color: #444;
+}
+#leaderboard .empty {
+    font-size: 13px;
+    color: #666;
+    text-align: center;
+}
+
+/* Botón para limpiar tabla (opcional) */
+#clearLB {
+    display: inline-block;
+    margin-top: 6px;
+    font-size: 12px;
+    cursor: pointer;
+    color: #255966;
+    text-decoration: underline;
+    border: none;
+    background: transparent;
+}
+
 .game-over{
     display: none;
-
     position: absolute;
     width: 100%;
-
-
     text-align: center;
     color: #7e928b;
     font-size: 30px;
-    font-family: Verdana;
+    font-family: Verdana, sans-serif;
     font-weight: 700;
+    top: 45%;
 }
 
 @keyframes animarDino{
-    from{
-        background-position-x: -84px;
-    }
-    to{
-        background-position-x: -252px;
-    }
+    from{ background-position-x: -84px; }
+    to{   background-position-x: -252px; }
 }
 
-
+#leaderboard{
+    margin-left: 4.7%;
+}
     </style>
 </head>
 <body>
-
+    <!-- ====== TABLA DE POSICIONES (TOP 5) ====== -->
+        <div id="leaderboard">
+            <h2>🏆 Tabla de posiciones</h2>
+            <ol id="score-list"></ol>
+            <button id="clearLB" title="Borrar tabla de posiciones">limpiar tabla</button>
+        </div>
+        <!-- ========================================= -->
     <div class="contenedor">
-
         <div class="suelo"></div>
-        
         <div class="dino dino-corriendo"></div>
-
         <div class="score">0</div>
 
+        
     </div>
 
     <div class="game-over">GAME OVER</div>
-    
 
 <script>
-
 //****** GAME LOOP ********//
-
 var time = new Date();
 var deltaTime = 0;
 
@@ -194,7 +208,6 @@ function Loop() {
 }
 
 //****** GAME LOGIC ********//
-
 var sueloY = 22;
 var velY = 0;
 var impulso = 900;
@@ -232,13 +245,74 @@ var textoScore;
 var suelo;
 var gameOver;
 
+// ====== LEADERBOARD (TOP 5) ======
+const LB_KEY = 'dino_leaderboard';
+
+function getLeaderboard() {
+    try {
+        return JSON.parse(localStorage.getItem(LB_KEY)) || [];
+    } catch {
+        return [];
+    }
+}
+
+function saveLeaderboard(list) {
+    localStorage.setItem(LB_KEY, JSON.stringify(list));
+}
+
+function saveScore(name, points) {
+    const trimmed = (name || 'Jugador').toString().trim().slice(0, 20);
+    let lb = getLeaderboard();
+    lb.push({ name: trimmed || 'Jugador', score: points|0, date: Date.now() });
+    lb.sort((a,b) => b.score - a.score || a.date - b.date);
+    lb = lb.slice(0, 5);
+    saveLeaderboard(lb);
+    renderLeaderboard();
+}
+
+function renderLeaderboard() {
+    const list = getLeaderboard();
+    const ol = document.getElementById('score-list');
+    ol.innerHTML = '';
+    if (!list.length) {
+        const div = document.createElement('div');
+        div.className = 'empty';
+        div.textContent = 'Todavía no hay puntajes. ¡Jugá una partida!';
+        ol.parentNode.insertBefore(div, ol.nextSibling);
+        return;
+    }
+    // Si había mensaje de "empty", lo saco
+    const maybeEmpty = ol.parentNode.querySelector('.empty');
+    if (maybeEmpty) maybeEmpty.remove();
+
+    list.forEach((entry, i) => {
+        const li = document.createElement('li');
+        li.textContent = `${entry.name} — ${entry.score}`;
+        ol.appendChild(li);
+    });
+}
+
+//****** SETUP ********//
 function Start() {
     gameOver = document.querySelector(".game-over");
     suelo = document.querySelector(".suelo");
     contenedor = document.querySelector(".contenedor");
     textoScore = document.querySelector(".score");
     dino = document.querySelector(".dino");
-    document.addEventListener("click", HandleKeyDown);
+
+    document.addEventListener("click", HandleClick);
+
+    // Renderizo tabla al inicio
+    renderLeaderboard();
+
+    // Botón para limpiar la tabla (opcional)
+    const clearBtn = document.getElementById('clearLB');
+    clearBtn.addEventListener('click', () => {
+        localStorage.removeItem(LB_KEY);
+        renderLeaderboard();
+        const ol = document.getElementById('score-list');
+        ol.innerHTML = '';
+    });
 }
 
 function Update() {
@@ -255,7 +329,7 @@ function Update() {
     velY -= gravedad * deltaTime;
 }
 
-function HandleKeyDown(ev){
+function HandleClick(event){
     if(event.button === 0){
         Saltar();
         if(bandera === 1){
@@ -276,7 +350,6 @@ function Saltar(){
 function MoverDinosaurio() {
     dinoPosY += velY * deltaTime;
     if(dinoPosY < sueloY){
-        
         TocarSuelo();
     }
     dino.style.bottom = dinoPosY+"px";
@@ -389,6 +462,24 @@ function GameOver() {
     Estrellarse();
     gameOver.style.display = "block";
     bandera = 1;
+
+    // ====== GUARDAR PUNTAJE EN LEADERBOARD ======
+    // Si querés que el nombre se pida una sola vez por sesión, podrías cachearlo.
+    
+    if (getLeaderboard().length < 5) {
+        const nombre = prompt("¡Game Over! Ingresá tu nombre para la tabla:", "Jugador");
+        // Si usás score que arranca en 1, guardo el valor actual:
+        saveScore(nombre || "Jugador", score);
+    }else{
+        if (score > getLeaderboard()[4].score) {
+            const nombre = prompt("¡Game Over! Ingresá tu nombre para la tabla:", "Jugador");
+            // Si usás score que arranca en 1, guardo el valor actual:
+            saveScore(nombre || "Jugador", score);
+        }
+    }
+    
+
+    
 }
 
 function DetectarColision() {
@@ -415,8 +506,6 @@ function IsCollision(a, b, paddingTop, paddingRight, paddingBottom, paddingLeft)
         (aRect.left + paddingLeft > (bRect.left + bRect.width))
     );
 }
-
-
 </script>
 </body>
 </html>
